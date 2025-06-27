@@ -21,12 +21,12 @@
                 <span class="spacer"></span>
                 <span>Usuarios</span>
             </a>
-            <a mat-list-item (click)="changeRoute('admin', 'areas')" *ngIf="isAdmin || isUser">
+            <a mat-list-item (click)="changeRoute('admin', 'areas')" *ngIf="isAdmin">
                 <mat-icon mat-list-icon>public</mat-icon>
                 <span class="spacer"></span>
                 <span>Areas</span>
             </a>
-            <a mat-list-item (click)="changeRoute('admin', 'petitioners')" *ngIf="isAdmin || isUser">
+            <a mat-list-item (click)="changeRoute('admin', 'petitioners')" *ngIf="isAdmin">
                 <mat-icon mat-list-icon>person_outline</mat-icon>
                 <span class="spacer"></span>
                 <span>Solicitantes</span>

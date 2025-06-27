@@ -18,6 +18,7 @@ import { InventoryService } from './services/inventory/inventory.service';
 import { InventoryStore } from './services/store/inventory-store';
 import { DialogMessageService } from 'src/app/shared/services/dialog-message.service';
 import { DialogMessageComponent } from 'src/app/shared/components/dialog-message/dialog-message.component';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 
 @Component({
     selector: 'app-inventory',
@@ -55,6 +56,7 @@ export class InventoryComponent implements OnInit {
 
     userStatusSubs!: Subscription;
     isAdmin!: boolean;
+    userRole: string = '';
 
     paginatorState: PageEvent = paginatorInitialState;
 
@@ -67,13 +69,17 @@ export class InventoryComponent implements OnInit {
         private inventoryStore: InventoryStore,
         private tableStoreService: TableStoreService,
         private authService: AuthService,
-        private dialogMessageService: DialogMessageService
+        private dialogMessageService: DialogMessageService,
+        private localStorageService: LocalStorageService
     ) { }
 
     ngOnInit(): void {
         this.loadingService.toggleLoading(true);
         this.tableStoreService.setTableContext('inventory');
         this.paginatorService.reset();
+
+        const user = this.localStorageService.getItem('user');
+        this.userRole = user?.role || '';
 
         this.userStatusSubs = this.authService.adminStatus().subscribe((isAdmin: boolean) => {
             this.isAdmin = isAdmin;
